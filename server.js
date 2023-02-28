@@ -10,6 +10,8 @@ import { fileURLToPath } from "url";
 
 dotenv.config();
 connectDatabase();
+const app = express();
+app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -23,8 +25,6 @@ app.get("*", (req, res) => {
     }
   )
 })
-const app = express();
-app.use(express.json());
 
 // API
 app.use("/api/import", ImportData);
