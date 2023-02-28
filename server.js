@@ -6,9 +6,23 @@ import productRoute from "./Routes/ProductRoutes.js";
 import { errorHandler, notFound } from "./Middleware/Errors.js";
 import userRouter from "./Routes/UserRoutes.js";
 import orderRouter from "./Routes/orderRoutes.js";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 connectDatabase();
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname,"frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "./frontend/build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  )
+})
 const app = express();
 app.use(express.json());
 
